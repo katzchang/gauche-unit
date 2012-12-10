@@ -17,86 +17,33 @@
    (x->string expected)
    default-mismatch-messenger))
 
-;; matcher
+;; is matcher
 (define (is expected)
     (list
      (lambda (actual) (equal? expected actual))
      (x->string expected)
      default-mismatch-messenger))
 
-(assert (= 1 1) (is #t)) ; #t
-(assert (= 1 1) (is #f)) ; error
-(assert (= 1 2) (is #f)) ; #t
-(assert (= 1 2) (is #t)) ; error
-(assert (+ 1 2) (is 3)) ; #t
-(assert (+ 1 2) (is 4)) ; error
-(assert (substring "ahoge" 1 5) (is "hoge")) ; #t
-(assert (substring "ahoge" 1 5) (is "hage")) ; error
-(assert (list) (is '()))
-(assert (list) (is "hoge"))
-(assert (make-list 3 "hoge") (is (list "hoge" "hoge" "hoge")))
-(assert (+ 1 1) (is "hoge"))
-(assert (+ 1 1) (is "2")) ; TODO: unko discription
-
-;; list contains?
-(assert (find (lambda (e) (equal? e 2)) (list 1 2 3)) (is 2))
-(assert (find (lambda (e) (equal? e 4)) (list 1 2 3)) (is #f))
-(assert (if 2 'true 'false) (is 'true))
-(assert (if #f 'true 'false) (is 'false))
-
-(define (contains? item list)
-  (if (any (lambda (e) (equal? e item)) list) #t #f))
-(assert (contains? 2 (list 1 2 3)) (is #t))
-(assert (contains? "2" (list 1 2 3)) (is #f))
-
+;; contains matcher
 (define (contains expected)
-    (list
-     (lambda (actual) (contains? expected actual))
-     (string-append "contains " (x->string expected))
-     default-mismatch-messenger))
-(assert (list "hoge" "fuga") (contains "fuga")) ; #t
-(assert (list "hoge" "fuga") (contains "hage")) ; error
+  (define (contains? item list)
+    (if (any (lambda (e) (equal? e item)) list) #t #f))
+  (list
+   (lambda (actual) (contains? expected actual))
+   (string-append "contains " (x->string expected))
+   default-mismatch-messenger))
 
-;; is grater than
-(define (is-grater-than expected)
+;; is greater than matcher
+(define (is-greater-than expected)
   (let ((test? (cond ((number? expected) <)
 		     ((string? expected) string<?)
-		     (else raise "cannot compare")))
+		     (else (lambda (e a) (raise (string-append "can not compare " (x->string e) " and " (x->string a))))))))
     (list
      (lambda (actual) (test? expected actual))
-     (string-append "grater than " (x->string expected))
+     (string-append "greater than " (x->string expected))
      default-mismatch-messenger)))
 
-(assert (+ 1 2) (is-grater-than 2)) ; #t
-(assert (+ 1 2) (is-grater-than 3)) ; error
-(assert (+ 1 2) (is-grater-than 4)) ; error
-
-(assert (string<? "a" "b") (is #t)) ; #t
-(assert (string<? "c" "b") (is #t)) ; error
-(assert "hoge" (is-grater-than "hage")) ; #t
-(assert "hage" (is-grater-than "hoge")) ; error
-(assert #t (is-grater-than #f)) ; error
-
 ;; raises matcher
-(assert
- (guard (exc
-	 ((string? exc) (equal? exc "expected: #f, but: was #t"))
-	 (else #f))
-	(assert #t (is #f)))
- (is #t))
-
-(assert (force (lazy (+ 1 1))) (is 2))
-(assert (promise? (lazy (+ 1 1))) (is #t))
-
-((lambda (promise-actual)
-   (if (promise? promise-actual)
-       (guard (exc
-	       ((string? exc) "raised")
-	       (else "not raised"))
-	      (force promise-actual))
-       "???"))
-   (lazy (raise "foo")))
-
 (define (raises expected)
   (list
    (lambda (promise-actual)
@@ -108,13 +55,4 @@
 	 (raise "actual must be a promise.")))
      (string-append "raises '" (x->string expected) "'")
      (lambda (actual) "not be raised.")))
-
-(assert (lazy (raise "foo")) (raises "foo"))
-(assert
- (lazy (assert (lazy (raise "foo")) (raises "bar")))
- (raises "expected: raises 'bar', but: not be raised."))
-
-;(assert
-; (lazy (assert (+ 1 2) (is 3)))
-; (raises "expected: 2, but: was 3")) ; error
 
