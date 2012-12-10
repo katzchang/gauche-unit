@@ -12,10 +12,6 @@
 
 (define default-mismatch-messenger
   (lambda (actual) (string-append "was " (x->string actual))))
-(define (default-description expected)
-  (list
-   (x->string expected)
-   default-mismatch-messenger))
 
 ;; is matcher
 (define (is expected)
