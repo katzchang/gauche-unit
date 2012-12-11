@@ -23,7 +23,7 @@ make test
 
 gaucheにも組み込みでtestなんとかがあるらしいけど、このへんはアレですね、使い慣れた感じのほうがね。再発明とか気にしないの。これは訓練である。これは訓練である。
 
-12/11は [@bash0C7](http://twitter.com/bash0C7) 先生による [ハイプレッシャーを克服するためのテスト駆動開発の重要な「二歩目」](http://d.hatena.ne.jp/bash0C7/20121211/TddAdventJp) です。大変いい話ですね。
+12/11は [@bash0C7](http://twitter.com/bash0C7) 先生による [ハイプレッシャーを克服するためのテスト駆動開発の重要な「二歩目」](http://d.hatena.ne.jp/bash0C7/20121211/TddAdventJp) です。これも大変いい話ですね。
 
 以上、よろしくお願い致します。
 
