@@ -1,11 +1,10 @@
 ;; assertion
 (define (assert actual matcher)
-  (define (match? matcher actual)
-    ((car matcher) actual))
-  (define (describe matcher actual)
-    (string-append "expected: " (description-of matcher) ", but: " (describe-mismatch matcher actual)))
+  (define (match? matcher actual) ((car matcher) actual))
   (define (description-of matcher) (cadr matcher))
   (define (describe-mismatch matcher actual) ((caddr matcher) actual))
+  (define (describe matcher actual)
+    (string-append "expected: " (description-of matcher) ", but: " (describe-mismatch matcher actual)))
   (if (match? matcher actual)
       #t
       (raise (describe matcher actual))))
@@ -51,4 +50,3 @@
 	 (raise "actual must be a promise.")))
      (string-append "raises '" (x->string expected) "'")
      (lambda (actual) "not be raised.")))
-
