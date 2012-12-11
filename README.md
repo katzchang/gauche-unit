@@ -25,4 +25,6 @@ gaucheにも組み込みでtestなんとかがあるらしいけど、このへ�
 
 以上、よろしくお願い致します。
 
+12/11は [@bash0C7](http://twitter.com/bash0C7) 先生による [] ハイプレッシャーを克服するためのテスト駆動開発の重要な「二歩目」(http://d.hatena.ne.jp/bash0C7/20121211/TddAdventJp) です。大変いい話ですね。
+
 ポイントは、raises matcherのときのactualはlazyなんとかにしないといけないっぽいところです?
