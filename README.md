@@ -9,6 +9,8 @@
 という感じで書いたのがコレなので、動かすには、gaucheがインストールされている状態で
 
 ```
+git clone git://gist.github.com/4251773.git gist-4251773
+cd gist-4251773
 make test
 ```
 
