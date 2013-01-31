@@ -1,9 +1,15 @@
 (use gauche.unit)
 
 (define-module t.hello-suite
-  (export hello-test)
+  (export-all)
 
   (use gauche.unit)
+
   (define (hello-test)
    (assert 1 (is 1))
-   (assert "hoge" (is "hogex"))))
+   (assert "hoge" (is "hoge")))
+
+  (define (error-test)
+    (assert 1 (is 2)))
+
+  )
