@@ -11,7 +11,10 @@
 	    (for-each
 	     (lambda (s)
 	       (print "running " s)
-	       (eval `(,s) (interaction-environment)))
+	       (guard (e (else (print e)))
+		      (begin
+			(eval `(,s) (interaction-environment))
+			(print 'ok))))
 	     exports)
 	    )
       )
