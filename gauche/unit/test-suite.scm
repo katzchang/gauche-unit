@@ -13,7 +13,7 @@
     (filter (^(x) (eq? x item)) ls))
   (define count-all length)
   (define (count-if item ls)
-    (length (collect 'ok ls)))
+    (length (collect item ls)))
 
   (define (run-suite mods)
     (let1 result (flatmap run-test mods)
