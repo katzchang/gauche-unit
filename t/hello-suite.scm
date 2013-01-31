@@ -4,9 +4,6 @@
   (export hello-test)
 
   (use gauche.unit)
-  (define (test description . procs)
-    eval procs)
-
-  (define (hello-test) (test
+  (define (hello-test)
    (assert 1 (is 1))
-   (assert "hoge" (is "hoge")))))
+   (assert "hoge" (is "hogex"))))
