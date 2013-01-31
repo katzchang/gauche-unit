@@ -1,7 +1,7 @@
 (use gauche.sequence)
 
 (define (main args)
-  (exit (if (run-suite '(t.hello-suite)) 0 1)))
+  (run-suite '(t.hello-suite)))
 
 (define (flatmap fn ls)
   (apply append (map fn ls)))
@@ -14,7 +14,7 @@
 	      (ret (if (any (^(e) (eq? e 'err)) result) #f #t)))
 	  (print "total: " total ", pass: " pass ", error: " err)
 	  (print (if ret 'ok 'err))
-	  ret)))
+	  err)))
 
 (define (run-test mod)
   (let1 result
