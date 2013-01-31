@@ -1,6 +1,6 @@
 (use gauche.unit)
 
-(define-module t.fail-suite
+(define-module t.fail-test
   (export-all)
 
   (use gauche.unit)

@@ -1,8 +1,14 @@
 (define-module gauche.unit.test-suite
-  (export run-suite
+  (export test
+	  run-suite
 	  run-test)
 
   (use gauche.sequence)
+
+  (define test
+    (lambda mods (exit (run-suite mods))))
+
+
   (define (flatmap fn ls)
     (apply append (map fn ls)))
   

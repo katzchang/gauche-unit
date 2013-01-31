@@ -1,4 +1,4 @@
-(define-module t.gu_test
+(define-module t.gu-test
   (export-all)
   (use gauche.unit)
 

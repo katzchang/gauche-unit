@@ -1,7 +1,8 @@
 all: test
 
 test:
-	env gosh -I ./ ./t/gu_test.scm
+	env gosh -I . -E "(use gauche.unit) (test 't.gu-test)"
 
-run_suite:
-	env gosh -I ./ ./t/run_suite.scm
+fail_test:
+	env gosh -I . -E "(use gauche.unit) (test 't.fail-test)"
+
