@@ -1,4 +1,4 @@
 all: test
 
 test:
-	env gosh ./gu_test.scm
+	env gosh -I ./ ./gu_test.scm
