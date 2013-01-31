@@ -14,7 +14,7 @@
       (string-append "expected: " (description-of matcher) ", but: " (describe-mismatch matcher actual)))
     (if (match? matcher actual)
 	#t
-	(error (describe matcher actual))))
+	(raise (describe matcher actual))))
   
   (define default-mismatch-messenger
     (lambda (actual) (string-append "was " (x->string actual))))
