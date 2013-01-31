@@ -1,5 +1,4 @@
-GOSH=/usr/local/bin/gosh
-L=./gu.scm
+all: test
 
 test:
-	$(GOSH) -l $(L) ./*test.scm
+	env gosh ./gu_test.scm

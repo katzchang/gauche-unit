@@ -1,4 +1,4 @@
-;(load "./gu.scm")
+(use gauche.unit)
 
 ; raises test
 (assert (lazy (raise "foo"))
