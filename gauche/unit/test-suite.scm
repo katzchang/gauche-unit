@@ -30,7 +30,11 @@
     (let1 exports (module-exports (find-module mod))
 	  (map (^(s)
 		 (print s "...")
-		 (guard (e (else (begin (print e) 'err)))
+		 (guard (e
+			 ((condition-has-type? e <error>)
+			  (begin (print (current-class-of e) ": " (slot-ref e 'message))
+				 'err))
+			 (else (begin (print e) 'err)))
 			(begin
 			  (eval `(,s) env)
 			  'ok)))
